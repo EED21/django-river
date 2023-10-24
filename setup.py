@@ -13,7 +13,7 @@ except IOError as err:
 
 setup(
     name='django-river',
-    version='3.3.0',
+    version='3.3.1',
     author='Ahmet DAL',
     author_email='ceahmetdal@gmail.com',
     packages=find_packages(),
@@ -22,9 +22,10 @@ setup(
     long_description=long_description,
     install_requires=[
         "Django",
-        "django-mptt==0.9.1",
+        "django-mptt==0.15.0",
         "django-cte==1.1.4",
-        "django-codemirror2==0.2"
+        "django-codemirror2==0.2",
+        "six==1.16.0"
     ],
     include_package_data=True,
     zip_safe=False,
