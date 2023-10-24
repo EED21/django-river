@@ -1,9 +1,9 @@
+from pathlib import Path
 import os
 import sys
-
 import django
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 DEBUG = True
 
