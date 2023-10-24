@@ -1,9 +1,9 @@
-from pathlib import Path
 import os
 import sys
+
 import django
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 DEBUG = True
 
@@ -34,7 +34,7 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['codemirror2/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
