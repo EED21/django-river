@@ -29,7 +29,7 @@ class InstanceWorkflowObject(object):
     @transaction.atomic
     def initialize_approvals(self):
         if not self.initialized:
-            if self.workflow and self.workflow.transition_approvals.filter(workflow_object=self.workflow_object).count() == 0:
+            if self.workflow and len(self.workflow.transition_approvals.filter(workflow_object=self.workflow_object)) == 0:
                 transition_meta_list = self.workflow.transition_metas.filter(source_state=self.workflow.initial_state)
                 iteration = 0
                 processed_transitions = []
@@ -68,7 +68,7 @@ class InstanceWorkflowObject(object):
 
     @property
     def on_final_state(self):
-        return self.class_workflow.final_states.filter(pk=self.get_state().pk).count() > 0
+        return len(self.class_workflow.final_states.filter(pk=self.get_state().pk)) > 0
 
     @property
     def next_approvals(self):
@@ -118,12 +118,12 @@ class InstanceWorkflowObject(object):
     @atomic
     def approve(self, as_user, next_state=None):
         available_approvals = self.get_available_approvals(as_user=as_user)
-        number_of_available_approvals = available_approvals.count()
+        number_of_available_approvals = len(available_approvals)
         if number_of_available_approvals == 0:
             raise RiverException(ErrorCode.NO_AVAILABLE_NEXT_STATE_FOR_USER, "There is no available approval for the user.")
         elif next_state:
             available_approvals = available_approvals.filter(transition__destination_state=next_state)
-            if available_approvals.count() == 0:
+            if len(available_approvals) == 0:
                 available_states = self.get_available_states(as_user)
                 raise RiverException(ErrorCode.INVALID_NEXT_STATE_FOR_USER, "Invalid state is given(%s). Valid states is(are) %s" % (
                     next_state.__str__(), ','.join([ast.__str__() for ast in available_states])))
@@ -141,7 +141,7 @@ class InstanceWorkflowObject(object):
             self.cancel_impossible_future(approval)
 
         has_transit = False
-        if approval.peers.filter(status=PENDING).count() == 0:
+        if len(approval.peers.filter(status=PENDING)) == 0:
             approval.transition.status = DONE
             approval.transition.save()
             previous_state = self.get_state()
@@ -207,7 +207,7 @@ class InstanceWorkflowObject(object):
             source_state=done_transition.destination_state
         )
 
-        return qs.filter(status=DONE).count() > 0 and qs.filter(status=PENDING).count() == 0
+        return len(qs.filter(status=DONE)) > 0 and len(qs.filter(status=PENDING)) == 0
 
     def _get_transition_images(self, source_states):
         meta_max_iteration = Transition.objects.filter(
