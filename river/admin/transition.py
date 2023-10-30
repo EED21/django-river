@@ -9,6 +9,7 @@ class TransitionForm(forms.ModelForm):
 
 class TransitionAdmin(admin.ModelAdmin):
     form = TransitionForm
+    fields = '__all__'
 
 
 admin.site.register(Transition, TransitionAdmin)
