@@ -6,10 +6,10 @@ from river.models.transition import Transition
 class TransitionForm(forms.ModelForm):
     class Meta:
         model = Transition
+        fields = '__all__'
 
 class TransitionAdmin(admin.ModelAdmin):
     form = TransitionForm
-    fields = '__all__'
 
 
 admin.site.register(Transition, TransitionAdmin)
