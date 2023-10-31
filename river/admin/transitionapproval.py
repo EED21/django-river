@@ -6,7 +6,7 @@ from river.models.transitionapproval import TransitionApproval
 class TransitionApprovalForm(forms.ModelForm):
     class Meta:
         model = TransitionApproval
-        exclude = ('previous',)
+        fields = '__all__'
 
 class TransitionApprovalAdmin(admin.ModelAdmin):
     form = TransitionApprovalForm
