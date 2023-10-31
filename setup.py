@@ -23,7 +23,7 @@ setup(
     install_requires=[
         "Django",
         "django-mptt==0.15.0",
-        "django-cte==1.1.4",
+        "django-cte==1.3.1",
         "django-codemirror2==0.2",
         "six==1.16.0"
     ],
