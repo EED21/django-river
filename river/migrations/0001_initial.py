@@ -191,8 +191,28 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='transitionapproval',
-            name='previous',
+            name='parent',
             field=mptt.fields.TreeOneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='next_transition', to='river.TransitionApproval', verbose_name='Previous Transition'),
+        ),
+        migrations.AddField(
+            model_name='transitionapproval',
+            name='level',
+            field=models.IntegerField(default=0, verbose_name='Level'),
+        ),
+        migrations.AddField(
+            model_name='transitionapproval',
+            name='lft',
+            field=models.IntegerField(default=0, verbose_name='Left'),
+        ),
+        migrations.AddField(
+            model_name='transitionapproval',
+            name='rght',
+            field=models.IntegerField(default=0, verbose_name='Right'),
+        ),
+        migrations.AddField(
+            model_name='transitionapproval',
+            name='tree_id',
+            field=models.IntegerField(default=0, verbose_name='Tree ID'),
         ),
         migrations.AddField(
             model_name='transitionapproval',
