@@ -17,6 +17,8 @@ from django.utils.translation import gettext_lazy as _
 from river.models.base_model import BaseModel
 from river.models.managers.transitionapproval import TransitionApprovalManager
 from river.config import app_config
+from mptt.models import MPTTModel
+
 
 PENDING = "pending"
 APPROVED = "approved"
@@ -33,7 +35,7 @@ STATUSES = [
 LOGGER = logging.getLogger(__name__)
 
 
-class TransitionApproval(BaseModel):
+class TransitionApproval(MPTTModel, BaseModel):
     class Meta:
         app_label = 'river'
         verbose_name = _("Transition Approval")
@@ -60,7 +62,7 @@ class TransitionApproval(BaseModel):
     groups = models.ManyToManyField(app_config.GROUP_CLASS, verbose_name=_('Groups'))
     priority = models.IntegerField(default=0, verbose_name=_('Priority'))
 
-    previous = TreeOneToOneField("self", verbose_name=_('Previous Transition'), related_name="next_transition", null=True, blank=True, on_delete=CASCADE)
+    parent = TreeOneToOneField("self", verbose_name=_('Previous Transition'), related_name="next_transition", null=True, blank=True, on_delete=CASCADE)
 
     @property
     def peers(self):
