@@ -70,7 +70,7 @@ class Transition(BaseModel):
         ).exclude(pk=self.pk)
 
     def __str__(self):
-        return 'Status: %s: %s, %s -> %s' % (
+        return '[Status: %s] %s, %s -> %s' % (
             self.status,
             self.workflow,
             self.source_state,
