@@ -68,3 +68,11 @@ class Transition(BaseModel):
             source_state=self.source_state,
             iteration=self.iteration
         ).exclude(pk=self.pk)
+
+    def __str__(self):
+        return 'Status: %s: %s, %s -> %s' % (
+            self.status,
+            self.workflow,
+            self.source_state,
+            self.destination_state
+        )
