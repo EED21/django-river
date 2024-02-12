@@ -5,7 +5,10 @@ from setuptools import setup, find_packages
 
 readme_file = os.path.join(os.path.dirname(__file__), 'README.rst')
 try:
-    long_description = open(readme_file).read()
+    with open(readme_file, encoding='utf-8') as f:
+    long_description = f.read()
+
+    #long_description = open(readme_file).read()
 except IOError as err:
     sys.stderr.write("[ERROR] Cannot find file specified as "
                      "``long_description`` (%s)\n" % readme_file)
